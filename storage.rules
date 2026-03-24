@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc(uid) {
+      return firestore.get(/databases/(default)/documents/users/$(uid));
+    }
+
+    function isAdmin() {
+      return signedIn() && userDoc(request.auth.uid).data.role == "admin";
+    }
+
+    match /proofs/{ownerUid}/{fileName} {
+      allow read: if signedIn();
+      allow write: if (signedIn() && request.auth.uid == ownerUid) || isAdmin();
+    }
+  }
+}

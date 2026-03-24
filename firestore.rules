@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userDocPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(userDocPath(request.auth.uid))
+        && get(userDocPath(request.auth.uid)).data.role == "admin";
+    }
+
+    function isOwner(data) {
+      return signedIn()
+        && data.userId is string
+        && data.userId == request.auth.uid;
+    }
+
+    function isCollaborator(data) {
+      return signedIn()
+        && data.collaboratorIds is list
+        && request.auth.uid in data.collaboratorIds;
+    }
+
+    match /users/{uid} {
+      allow create: if signedIn() && request.auth.uid == uid;
+      allow read: if signedIn();
+      allow update: if (signedIn() && request.auth.uid == uid) || isAdmin();
+      allow delete: if false;
+    }
+
+    match /bucketItems/{itemId} {
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.collaboratorIds is list
+        && request.resource.data.collaborators is list
+        && request.resource.data.title is string
+        && request.resource.data.completed is bool;
+
+      allow read: if isAdmin() || isOwner(resource.data) || isCollaborator(resource.data);
+      allow update: if isAdmin() || isOwner(resource.data) || isCollaborator(resource.data);
+      allow delete: if isAdmin() || isOwner(resource.data);
+    }
+  }
+}
