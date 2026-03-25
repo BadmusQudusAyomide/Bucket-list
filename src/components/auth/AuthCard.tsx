@@ -69,9 +69,9 @@ export const AuthCard = () => {
 
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              'Private by default with Firebase rules',
-              'Admin visibility for support and oversight',
-              'Installable PWA with cached sessions',
+              'Your bucket list stays personal unless you choose to share it',
+              'Get support-friendly account visibility when needed',
+              'Open the app anytime with a fast, installable experience',
             ].map((item) => (
               <div key={item} className="rounded-3xl border border-white/10 bg-white/8 p-4 text-sm">
                 {item}
