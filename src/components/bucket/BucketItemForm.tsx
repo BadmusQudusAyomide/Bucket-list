@@ -36,13 +36,13 @@ export const BucketItemForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass-panel space-y-5 p-6 sm:p-7">
-      <div className="flex items-center justify-between gap-4">
+    <form onSubmit={handleSubmit} className="glass-panel space-y-5 p-5 sm:p-7 xl:sticky xl:top-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
             {initialItem ? 'Edit item' : 'New goal'}
           </p>
-          <h2 className="mt-2 font-display text-3xl text-ink-950">
+          <h2 className="mt-2 font-display text-2xl text-ink-950 sm:text-3xl">
             {initialItem ? 'Refine the plan' : 'Add a bucket list item'}
           </h2>
         </div>
@@ -88,7 +88,7 @@ export const BucketItemForm = ({
       <button
         type="submit"
         disabled={loading}
-        className="rounded-2xl bg-sun-500 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-sun-400 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-2xl bg-sun-500 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-sun-400 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? 'Saving...' : initialItem ? 'Save changes' : 'Add item'}
       </button>

@@ -1,4 +1,4 @@
-import { Chrome, LogIn } from 'lucide-react'
+import { Chrome, Eye, EyeOff, LogIn } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/useAuth'
@@ -8,6 +8,7 @@ import { StatusMessage } from '../ui/StatusMessage'
 export const AuthCard = () => {
   const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [values, setValues] = useState<AuthFormValues>({ email: '', password: '' })
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const location = useLocation()
@@ -151,18 +152,28 @@ export const AuthCard = () => {
               <label className="text-sm font-semibold text-ink-900" htmlFor="password">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                minLength={6}
-                required
-                className="field-input"
-                placeholder="Minimum 6 characters"
-                value={values.password}
-                onChange={(event) =>
-                  setValues((current) => ({ ...current, password: event.target.value }))
-                }
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  minLength={6}
+                  required
+                  className="field-input pr-12"
+                  placeholder="Minimum 6 characters"
+                  value={values.password}
+                  onChange={(event) =>
+                    setValues((current) => ({ ...current, password: event.target.value }))
+                  }
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((current) => !current)}
+                  className="absolute inset-y-0 right-3 inline-flex items-center text-ink-800/65 transition hover:text-ink-950"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
 
             {error ? (

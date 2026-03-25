@@ -16,10 +16,10 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
   const onAuthPage = location.pathname === '/auth'
 
   return (
-    <div className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 lg:px-10">
+    <div className="relative min-h-screen overflow-hidden px-3 py-4 sm:px-6 sm:py-6 lg:px-10">
       <div className="absolute inset-x-0 top-0 -z-10 h-[420px] bg-[radial-gradient(circle_at_top,_rgba(236,159,5,0.14),_transparent_54%)]" />
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-7xl flex-col">
-        <header className="mb-6 flex flex-col gap-4 rounded-[32px] border border-white/50 bg-white/55 px-6 py-5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+        <header className="mb-6 flex flex-col gap-4 rounded-[28px] border border-white/50 bg-white/55 px-4 py-4 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:rounded-[32px] sm:px-6 sm:py-5">
           <div>
             <Link to={signedIn ? '/' : '/auth'} className="inline-flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink-950 text-sand-50 shadow-lg shadow-ink-950/20">
@@ -35,14 +35,14 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
           </div>
 
           {signedIn && !onAuthPage ? (
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="rounded-full border border-ink-900/10 bg-white/85 px-4 py-2 text-sm text-ink-800">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="rounded-full border border-ink-900/10 bg-white/85 px-4 py-2 text-center text-sm text-ink-800 sm:text-left">
                 <span className="font-semibold text-ink-950">{userProfile?.email}</span>
               </div>
               {userProfile?.role === 'admin' && (
                 <Link
                   to="/admin"
-                  className="action-chip border-mint-500/30 bg-mint-300/25 text-mint-500"
+                  className="action-chip justify-center border-mint-500/30 bg-mint-300/25 text-mint-500"
                 >
                   <ShieldCheck className="h-4 w-4" />
                   Admin view
@@ -52,7 +52,7 @@ export const AppShell = ({ children }: { children: ReactNode }) => {
                 type="button"
                 onClick={() => void logoutUser()}
                 disabled={authLoading}
-                className="action-chip"
+                className="action-chip justify-center"
               >
                 <LogOut className="h-4 w-4" />
                 Logout

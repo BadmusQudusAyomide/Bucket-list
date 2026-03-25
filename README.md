@@ -101,7 +101,7 @@ npm run dev
 5. Output directory: `dist`
 6. Deploy.
 
-If you need SPA fallback routing, add a `vercel.json` rewrite:
+SPA fallback routing is already included in `vercel.json`:
 
 ```json
 {

@@ -59,9 +59,11 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
 
   const ownedItems = items.filter((item) => item.userId === currentUid)
   const sharedItems = items.filter((item) => item.userId !== currentUid)
+  const completedCount = ownedItems.filter((item) => item.completed).length
+  const openCount = ownedItems.length - completedCount
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
+    <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
       <BucketItemForm
         key={editingItem?.id ?? 'new-item'}
         initialItem={editingItem}
@@ -78,8 +80,8 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
           <StatusMessage title="Unable to load items" description={error} tone="error" />
         ) : null}
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <div className="glass-panel p-5">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="glass-panel p-4 sm:p-5">
             <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
               Your goals
             </p>
@@ -88,13 +90,24 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
               Items you own and can share with collaborators.
             </p>
           </div>
-          <div className="glass-panel p-5">
+          <div className="glass-panel p-4 sm:p-5">
             <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
-              Shared with you
+              Completed
             </p>
-            <p className="mt-2 font-display text-4xl text-ink-950">{sharedItems.length}</p>
+            <p className="mt-2 font-display text-4xl text-ink-950">{completedCount}</p>
             <p className="mt-2 text-sm text-ink-800/72">
-              Goals where you've been invited to collaborate.
+              Milestones you have already turned into memories.
+            </p>
+          </div>
+          <div className="glass-panel p-4 sm:p-5 sm:col-span-2 xl:col-span-1">
+            <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
+              Open and shared
+            </p>
+            <p className="mt-2 font-display text-4xl text-ink-950">
+              {openCount} / {sharedItems.length}
+            </p>
+            <p className="mt-2 text-sm text-ink-800/72">
+              Open personal goals and items where you've been invited to collaborate.
             </p>
           </div>
         </div>
@@ -105,7 +118,7 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
               <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
                 Owned items
               </p>
-              <h2 className="mt-1 font-display text-3xl text-ink-950">
+              <h2 className="mt-1 font-display text-2xl text-ink-950 sm:text-3xl">
                 Build the list you want to live
               </h2>
             </div>
@@ -117,7 +130,7 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
             ) : ownedItems.length === 0 ? (
               <StatusMessage
                 title="No bucket items yet"
-                description="Create your first milestone on the left. It will appear here instantly."
+                description="Create your first milestone in the form and it will appear here instantly."
               />
             ) : (
               <div className="space-y-4">
@@ -147,7 +160,9 @@ export const BucketListSection = ({ currentUid }: BucketListSectionProps) => {
               <p className="text-sm font-semibold tracking-[0.24em] text-ink-800/55 uppercase">
                 Shared items
               </p>
-              <h2 className="mt-1 font-display text-3xl text-ink-950">Collaborate with others</h2>
+              <h2 className="mt-1 font-display text-2xl text-ink-950 sm:text-3xl">
+                Collaborate with others
+              </h2>
             </div>
 
             {sharedItems.length === 0 ? (
