@@ -1,6 +1,7 @@
 import {
   CheckCircle2,
   Pencil,
+  Tag,
   Trash2,
   Undo2,
   UserRoundPlus,
@@ -50,6 +51,10 @@ export const BucketItemCard = ({
                 }`}
               >
                 {item.completed ? 'Completed' : 'In progress'}
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-sand-100 px-3 py-1 text-xs font-semibold text-ink-800">
+                <Tag className="h-3.5 w-3.5" />
+                {item.category}
               </span>
               {item.collaboratorIds.length > 0 ? (
                 <span className="inline-flex items-center gap-1 rounded-full bg-cloud-100 px-3 py-1 text-xs font-semibold text-ink-800">

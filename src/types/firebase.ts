@@ -17,6 +17,7 @@ export interface BucketItem {
   userId: string
   title: string
   description?: string
+  category: string
   completed: boolean
   collaborators: Collaborator[]
   collaboratorIds: string[]
@@ -27,4 +28,5 @@ export interface BucketItem {
 export interface BucketItemInput {
   title: string
   description?: string
+  category: string
 }

@@ -20,8 +20,8 @@ export const DashboardPage = () => {
               Build a list worth remembering.
             </h1>
             <p className="mt-3 text-sm leading-6 text-ink-800/76 sm:text-base sm:leading-7">
-              Track your next life milestones, share specific goals with collaborators, and
-              mark progress as you complete each experience.
+              Split your bucket life into meaningful chapters like this month, this year,
+              before 25, and anything else that helps your goals feel real and reachable.
             </p>
           </div>
           <div className="rounded-[24px] border border-ink-900/10 bg-sand-50/80 px-4 py-3 text-sm text-ink-800 sm:rounded-[28px] sm:px-5 sm:py-4">

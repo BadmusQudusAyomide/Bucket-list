@@ -1,5 +1,6 @@
 import { Timestamp } from 'firebase/firestore'
 import type { BucketItem, UserProfile } from '../types/firebase'
+import { normalizeBucketCategory } from './categories'
 
 const toDate = (value: Timestamp | Date | null | undefined) => {
   if (!value) {
@@ -31,6 +32,7 @@ export const mapBucketItem = (
   userId: String(data.userId ?? ''),
   title: String(data.title ?? ''),
   description: typeof data.description === 'string' ? data.description : '',
+  category: normalizeBucketCategory(typeof data.category === 'string' ? data.category : ''),
   completed: Boolean(data.completed),
   collaborators: Array.isArray(data.collaborators)
     ? data.collaborators

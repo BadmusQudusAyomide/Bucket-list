@@ -15,6 +15,7 @@ import {
 import { db } from './firebase'
 import { mapBucketItem, mapUserProfile } from '../utils/firebaseMappers'
 import type { BucketItem, BucketItemInput, UserProfile } from '../types/firebase'
+import { normalizeBucketCategory } from '../utils/categories'
 
 const bucketItemsRef = collection(db, 'bucketItems')
 const usersRef = collection(db, 'users')
@@ -34,6 +35,7 @@ export const createBucketItem = async (uid: string, values: BucketItemInput) => 
     userId: uid,
     title: values.title.trim(),
     description: values.description?.trim() ?? '',
+    category: normalizeBucketCategory(values.category),
     completed: false,
     collaborators: [],
     collaboratorIds: [],
@@ -46,6 +48,7 @@ export const updateBucketItem = async (itemId: string, values: BucketItemInput) 
   await updateDoc(doc(db, 'bucketItems', itemId), {
     title: values.title.trim(),
     description: values.description?.trim() ?? '',
+    category: normalizeBucketCategory(values.category),
     updatedAt: serverTimestamp(),
   })
 }

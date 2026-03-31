@@ -13,7 +13,7 @@ BucketLife is a production-oriented bucket list PWA built with React, Vite, Type
 ## Features
 
 - Email/password signup, Google OAuth login/signup, session persistence, and logout
-- Personal bucket list CRUD with completion tracking
+- Category-based bucket lists with completion tracking
 - Collaboration on shared items
 - Read-only admin dashboard for all users
 - Responsive UI with loading, empty, and error states
@@ -65,6 +65,7 @@ firebase deploy --only firestore:rules
   "userId": "owner uid",
   "title": "See the northern lights",
   "description": "Optional notes",
+  "category": "This year",
   "completed": false,
   "collaborators": [{ "userId": "collab uid", "role": "editor" }],
   "collaboratorIds": ["collab uid"],

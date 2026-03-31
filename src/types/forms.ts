@@ -6,4 +6,5 @@ export interface AuthFormValues {
 export interface BucketFormValues {
   title: string
   description: string
+  category: string
 }
